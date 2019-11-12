@@ -1,0 +1,27 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  curso_agno: 1
+  curso_sem: 1
+  curso_coord: MyString
+  curso_secc: 1
+  curso_elect: 1
+  curso_profesores: MyString
+  curso_aprobados: 1
+  curso_reprobados: 1
+  curso_promedio: 1
+  curso_inscritos: 1
+  curso_cod: 1
+
+two:
+  curso_agno: 1
+  curso_sem: 1
+  curso_coord: MyString
+  curso_secc: 1
+  curso_elect: 1
+  curso_profesores: MyString
+  curso_aprobados: 1
+  curso_reprobados: 1
+  curso_promedio: 1
+  curso_inscritos: 1
+  curso_cod: 1

@@ -8,7 +8,11 @@ class AsignaturasController < ApplicationController
 
   # GET /asignaturas/1
   def show
-    render json: @asignatura
+    @asignatura =  Asignatura.find(params[:id])
+    respond_to do |format|
+      format.html
+      format.json { render json: @asignatura.as_json(include: [:cursos]) }
+    end
   end
 
   # POST /asignaturas

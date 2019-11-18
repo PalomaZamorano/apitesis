@@ -28,7 +28,8 @@ ActiveRecord::Schema.define(version: 2019_11_07_012111) do
     t.datetime "updated_at", precision: 6, null: false
   end
 
-  create_table "cursos", force: :cascade do |t|
+  create_table "cursos", primary_key: ["id", "asignatura_id"], force: :cascade do |t|
+    t.bigserial "id", null: false
     t.integer "curso_agno"
     t.integer "curso_sem"
     t.string "curso_coord"
@@ -42,6 +43,7 @@ ActiveRecord::Schema.define(version: 2019_11_07_012111) do
     t.integer "curso_cod"
     t.datetime "created_at", precision: 6, default: -> { "now()" }, null: false
     t.datetime "updated_at", precision: 6, default: -> { "now()" }, null: false
+    t.bigint "asignatura_id", null: false
   end
 
   create_table "profesors", force: :cascade do |t|
@@ -86,5 +88,5 @@ ActiveRecord::Schema.define(version: 2019_11_07_012111) do
     t.datetime "updated_at", precision: 6, null: false
   end
 
-  add_foreign_key "asignaturas", "cursos", column: "id", name: "asign_curso_id"
+  add_foreign_key "cursos", "asignaturas", name: "curso_asign_id"
 end

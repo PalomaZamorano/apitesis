@@ -1,0 +1,1 @@
+json.partial! partial: 'cursos/curso', collection: @cursos, as: :curso

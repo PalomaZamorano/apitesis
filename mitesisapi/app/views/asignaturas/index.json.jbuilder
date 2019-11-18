@@ -1,0 +1,1 @@
+json.partial! partial: 'asignaturas/asignatura', collection: @asignaturas, as: :asignatura

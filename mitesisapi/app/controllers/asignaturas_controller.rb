@@ -4,8 +4,6 @@ class AsignaturasController < ApplicationController
   # GET /asignaturas
   def index
     @asignaturas = Asignatura.all
-
-    render json: @asignaturas
   end
 
   # GET /asignaturas/1
@@ -47,5 +45,11 @@ class AsignaturasController < ApplicationController
     # Only allow a trusted parameter "white list" through.
     def asignatura_params
       params.require(:asignatura).permit(:asign_nombre, :asign_code)
+
     end
+
+
+
+
+
 end

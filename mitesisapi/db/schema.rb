@@ -22,14 +22,13 @@ ActiveRecord::Schema.define(version: 2019_11_07_012111) do
     t.datetime "updated_at", precision: 6, default: -> { "now()" }, null: false
   end
 
-  create_table "curso_profesors", force: :cascade do |t|
-    t.bigint "curso_prof_ID"
+  create_table "curso_profesors", primary_key: "curso_id", id: :bigint, default: -> { "nextval('curso_profesors_id_seq'::regclass)" }, force: :cascade do |t|
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.bigint "profesor_id", null: false
   end
 
-  create_table "cursos", primary_key: ["id", "asignatura_id"], force: :cascade do |t|
-    t.bigserial "id", null: false
+  create_table "cursos", force: :cascade do |t|
     t.integer "curso_agno"
     t.integer "curso_sem"
     t.string "curso_coord"
@@ -44,6 +43,7 @@ ActiveRecord::Schema.define(version: 2019_11_07_012111) do
     t.datetime "created_at", precision: 6, default: -> { "now()" }, null: false
     t.datetime "updated_at", precision: 6, default: -> { "now()" }, null: false
     t.bigint "asignatura_id", null: false
+    t.bigint "resultado_encuestum_id"
   end
 
   create_table "profesors", force: :cascade do |t|
@@ -88,5 +88,7 @@ ActiveRecord::Schema.define(version: 2019_11_07_012111) do
     t.datetime "updated_at", precision: 6, null: false
   end
 
+  add_foreign_key "curso_profesors", "profesors", name: "profesor_id"
   add_foreign_key "cursos", "asignaturas", name: "curso_asign_id"
+  add_foreign_key "cursos", "resultado_encuesta", name: "curso_result_id"
 end

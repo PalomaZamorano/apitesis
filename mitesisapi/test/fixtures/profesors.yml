@@ -1,0 +1,17 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  prof_nombre_corto: MyString
+  if_DUU: false
+  prof_e_mail: MyString
+  prof_depto: MyString
+  prof_area: MyString
+  prof_jornada: MyString
+
+two:
+  prof_nombre_corto: MyString
+  if_DUU: false
+  prof_e_mail: MyString
+  prof_depto: MyString
+  prof_area: MyString
+  prof_jornada: MyString

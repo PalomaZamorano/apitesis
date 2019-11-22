@@ -3,12 +3,7 @@ class CursosController < ApplicationController
 
   # GET /cursos
   def index
-   # if params[:id]
-     # @cursos = Asignatura.find(params[:asign_code]).includes(:asignaturas).cursos
-    #else
       @cursos = Curso.all
-   #end
- # render json: @cursos
   end
 
   

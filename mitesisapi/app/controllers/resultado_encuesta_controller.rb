@@ -8,11 +8,12 @@ class ResultadoEncuestaController < ApplicationController
   end
 
   def show
-    @resultado_encuesta =  ResultadoEncuestum.find(params[:id])
-    respond_to do |format|
-      format.html
-      format.json { render json: @resultado_encuesta.as_json(include: [:curso]) }
-    end
+    respond_with(@resultado_encuesta)
+    #@resultado_encuesta =  ResultadoEncuestum.find(params[:id])
+    #respond_to do |format|
+     # format.html
+      #format.json { render json: @resultado_encuesta.as_json(include: [:curso]) }
+    #end
   end
 #No se debe crear no actualizar ni destruit una encuesta en el aula asociada al curso
   def create

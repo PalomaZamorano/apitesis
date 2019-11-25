@@ -34,6 +34,6 @@ class ProfesorsController < ApplicationController
     end
 
     def profesor_params
-      params.require(:profesor).permit(:prof_nombre_corto, :if_DUU, :prof_e_mail, :prof_depto, :prof_area, :prof_jornada)
+      params.require(:profesor).permit(:prof_nombre_corto, :if_DUU, :if_pendiente, :prof_proms_cursos, :prof_e_mail, :prof_depto, :prof_area, :prof_jornada)
     end
 end

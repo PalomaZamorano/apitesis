@@ -1,6 +1,7 @@
 Rails.application.routes.draw do
+  resources :results_profesors
   resources :curso_profesors
-  resources :profesors
+  resources :profesors 
   resources :resultado_encuesta
   resources :cursos
   resources :asignaturas

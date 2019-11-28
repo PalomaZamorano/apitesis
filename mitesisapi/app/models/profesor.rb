@@ -6,13 +6,8 @@ class Profesor < ApplicationRecord
 
     #Se calcula el promedio de los promedios de los cursos en los que el profesor
     #participa
-  #  before_update :calculate_avr_cursos
-
-
-   # private       # <--- at bottom of model
-    
-    #  def calculate_avr_cursos
-     #       avr = self.cursos.average(:curso_promedio)
-      #      self.prof_proms_cursos = avr
-      #end
+    def self.rankingModel
+      Profesor.limit(5).order('prof_proms_results asc')
+     end
+  
 end

@@ -60,6 +60,13 @@ ActiveRecord::Schema.define(version: 2019_11_07_012111) do
     t.integer "prof_proms_cursos"
   end
 
+  create_table "profesors_resultado_encuesta", id: :bigint, default: -> { "nextval('asignaturas_id_seq'::regclass)" }, force: :cascade do |t|
+    t.bigint "resultado_encuestum_id"
+    t.bigint "profesor_id"
+    t.datetime "created_at", precision: 6, default: -> { "now()" }, null: false
+    t.time "updated_at", precision: 6, default: -> { "now()" }, null: false
+  end
+
   create_table "resultado_encuesta", force: :cascade do |t|
     t.integer "result_semestre"
     t.integer "result_agno"
@@ -74,18 +81,13 @@ ActiveRecord::Schema.define(version: 2019_11_07_012111) do
     t.integer "result_prommaxg2"
     t.integer "result_prommaxg3"
     t.integer "result_prommaxg4"
-    t.string "result_promg1"
-    t.string "result_promg2"
-    t.string "result_promg3"
-    t.string "result_promg4"
     t.datetime "created_at", precision: 6, default: -> { "now()" }, null: false
     t.datetime "updated_at", precision: 6, default: -> { "now()" }, null: false
     t.string "result_profesors"
-  end
-
-  create_table "results_profesors", id: :bigint, default: -> { "nextval('asignaturas_id_seq'::regclass)" }, force: :cascade do |t|
-    t.bigint "result_id"
-    t.bigint "profesor_id"
+    t.decimal "result_promg1n"
+    t.decimal "result_promg2n"
+    t.decimal "result_promg3n"
+    t.decimal "result_promg4n"
   end
 
   create_table "user_tables", force: :cascade do |t|
@@ -100,6 +102,6 @@ ActiveRecord::Schema.define(version: 2019_11_07_012111) do
   add_foreign_key "cursos", "asignaturas", name: "curso_asign_id"
   add_foreign_key "cursos_profesors", "cursos", name: "curso_id"
   add_foreign_key "cursos_profesors", "profesors", name: "profesor_id"
-  add_foreign_key "results_profesors", "profesors", name: "profesor_id_f"
-  add_foreign_key "results_profesors", "resultado_encuesta", column: "result_id", name: "result_id_f"
+  add_foreign_key "profesors_resultado_encuesta", "profesors", name: "profesor_id_f"
+  add_foreign_key "profesors_resultado_encuesta", "resultado_encuesta", name: "result_id_f"
 end

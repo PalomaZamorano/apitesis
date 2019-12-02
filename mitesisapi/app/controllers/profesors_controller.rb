@@ -12,6 +12,14 @@ class ProfesorsController < ApplicationController
   def show
     respond_with(@profesor)
   end
+
+  def resultAgno
+    @profesor = Profesor.resultAgno(params[:id], params[:result_agno])
+    render json: @profesor
+  end
+
+
+
 #Ranking 5 profesores según promedio de promedios result encuestas hijos
   def ranking
     @profesors = Profesor.rankingModel
@@ -21,9 +29,15 @@ class ProfesorsController < ApplicationController
 #Promedio del promedio General de todos los profesores del sistema
   def PromGeneral
     valor = Profesor.average(:prof_proms_results) 
+    d1proms = Profesor.average(:prof_proms_d1) 
+    d2proms = Profesor.average(:prof_proms_d2) 
+    d3proms = Profesor.average(:prof_proms_d3) 
+    d4proms = Profesor.average(:prof_proms_d4)
+    total_encuestas =  Profesor.sum(:prof_totalEncuestas)
 
-    json = JSON.generate [{"promGeneral"=>valor}]  
-    render json:valor
+    json = JSON.generate [{"promGeneral"=>valor.round, "promD1"=>d1proms.round,
+                          "promD2"=>d2proms.round,"promD3"=>d3proms.round,"promD4"=>d4proms.round,"total_encuestas"=>total_encuestas}]  
+    render json:json
   end
 
   def create

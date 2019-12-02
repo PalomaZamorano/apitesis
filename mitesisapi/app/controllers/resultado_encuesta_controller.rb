@@ -8,14 +8,26 @@ class ResultadoEncuestaController < ApplicationController
   end
 
   def show
-    respond_with(@resultado_encuesta)
-    #@resultado_encuesta =  ResultadoEncuestum.find(params[:id])
-    #respond_to do |format|
-     # format.html
-      #format.json { render json: @resultado_encuesta.as_json(include: [:curso]) }
-    #end
+    @resultado_encuestum = ResultadoEncuestum.find(params[:id])
+    
   end
-#No se debe crear no actualizar ni destruit una encuesta en el aula asociada al curso
+
+  
+  def resultsGeneral
+      
+    integer = params[:result_asign].to_i
+    @resultado_encuesta = ResultadoEncuestum.where(:result_asign => integer)
+    resultadopromd1 = @resultado_encuesta.average(:result_promg1n)
+    resultadopromd2 = @resultado_encuesta.average(:result_promg2n)
+    resultadopromd3 = @resultado_encuesta.average(:result_promg3n)
+    resultadopromd4 = @resultado_encuesta.average(:result_promg4n)
+    json = JSON.generate ["promsd1"=>resultadopromd1.round,"promsd2"=>resultadopromd2.round, 
+    "promsd3"=>resultadopromd3.round, "promsd4"=>resultadopromd4.round]
+    render json: json
+  end
+
+
+#No se debe crear no actualizar ni destruir una encuesta en el aula asociada al curso
   def create
     @resultado_encuestum = ResultadoEncuestum.new(resultado_encuestum_params)
     @resultado_encuestum.save

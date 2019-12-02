@@ -9,5 +9,9 @@ class Profesor < ApplicationRecord
     def self.rankingModel
       Profesor.limit(5).order('prof_proms_results asc')
      end
+
+     def self.resultAgno(id,agno)
+      Profesor.find(id).resultado_encuestums.where(:result_agno => agno)
+     end 
   
 end

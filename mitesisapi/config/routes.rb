@@ -11,7 +11,9 @@ Rails.application.routes.draw do
   get 'profesorsRanking', to: 'profesors#ranking'
   #Retorna promedio general de los profesores de todo el sistema (supuestamente para informática)
   get 'profesorsPromGeneral', to: 'profesors#PromGeneral'
-  #Retorna promedio dimensiones de los profesores de todo el sistema (supuestamente para informática)
-  get 'profesorsPromDimensiones', to: 'profesors#PromDimensiones'
+  #Retorna los promedios de las dimensiones por código de la asignatura o media de la asignatura (para el get de cursos para el profesor)
+  get 'resultsGeneral/:result_asign', to: 'resultado_encuesta#resultsGeneral'
+  #Retorna los resultados de la encuesta por profesor y año
+  get 'profesoresultsAgno/:id/:result_agno', to: 'profesors#resultAgno'
   # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html
 end

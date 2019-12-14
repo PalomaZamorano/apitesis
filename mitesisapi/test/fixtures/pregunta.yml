@@ -1,0 +1,23 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  preg_nropreg: 1
+  preg_pregunta: MyString
+  preg_min: 1
+  preg_max: 1
+  preg_prom: 9.99
+  preg_profs: MyString
+  preg_codsign: 1
+  preg_result: one
+  preg_nombreasign: MyString
+
+two:
+  preg_nropreg: 1
+  preg_pregunta: MyString
+  preg_min: 1
+  preg_max: 1
+  preg_prom: 9.99
+  preg_profs: MyString
+  preg_codsign: 1
+  preg_result: two
+  preg_nombreasign: MyString

@@ -3,4 +3,7 @@ json.url resultado_encuestum_url(resultado_encuestum, format: :json)
 json.profesors do
     json.array! resultado_encuestum.profesors, :id, :prof_nombre_corto, :if_DUU, :prof_e_mail, :prof_depto, :prof_area, :prof_jornada
     end
+json.preguntas do
+  json.array! resultado_encuestum.preguntum, :id, :preg_nropreg, :preg_pregunta, :preg_min, :preg_max, :preg_prom, :preg_profs, :preg_codsign, :preg_nombreasign
+end
 

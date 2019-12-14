@@ -20,6 +20,7 @@ ActiveRecord::Schema.define(version: 2019_11_07_012111) do
     t.integer "asign_code"
     t.datetime "created_at", precision: 6, default: -> { "now()" }, null: false
     t.datetime "updated_at", precision: 6, default: -> { "now()" }, null: false
+    t.string "asign_coordinadores"
   end
 
   create_table "cursos", force: :cascade do |t|
@@ -47,6 +48,20 @@ ActiveRecord::Schema.define(version: 2019_11_07_012111) do
     t.bigint "profesor_id", null: false
   end
 
+  create_table "preguntas", id: :bigint, default: -> { "nextval('resultado_encuesta_id_seq'::regclass)" }, force: :cascade do |t|
+    t.integer "preg_nropreg"
+    t.string "preg_pregunta"
+    t.integer "preg_min"
+    t.integer "preg_max"
+    t.decimal "preg_prom"
+    t.string "preg_profs"
+    t.integer "preg_codsign"
+    t.bigint "preg_result_id"
+    t.string "preg_nombreasign"
+    t.time "created_at", precision: 6, default: -> { "now()" }, null: false
+    t.time "updated_at", precision: 6, default: -> { "now()" }, null: false
+  end
+
   create_table "profesors", force: :cascade do |t|
     t.string "prof_nombre_corto"
     t.boolean "if_DUU"
@@ -57,7 +72,12 @@ ActiveRecord::Schema.define(version: 2019_11_07_012111) do
     t.datetime "created_at", precision: 6, default: -> { "now()" }, null: false
     t.datetime "updated_at", precision: 6, default: -> { "now()" }, null: false
     t.integer "if_pendiente"
-    t.integer "prof_proms_cursos"
+    t.decimal "prof_proms_results"
+    t.integer "prof_proms_d1"
+    t.integer "prof_proms_d2"
+    t.integer "prof_proms_d3"
+    t.integer "prof_proms_d4"
+    t.integer "prof_totalEncuestas"
   end
 
   create_table "profesors_resultado_encuesta", id: :bigint, default: -> { "nextval('asignaturas_id_seq'::regclass)" }, force: :cascade do |t|
@@ -97,11 +117,14 @@ ActiveRecord::Schema.define(version: 2019_11_07_012111) do
     t.integer "user_cargo"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.string "user_password"
   end
 
   add_foreign_key "cursos", "asignaturas", name: "curso_asign_id"
   add_foreign_key "cursos_profesors", "cursos", name: "curso_id"
   add_foreign_key "cursos_profesors", "profesors", name: "profesor_id"
+  add_foreign_key "preguntas", "resultado_encuesta", column: "preg_result_id", name: "preguntas_id_result"
   add_foreign_key "profesors_resultado_encuesta", "profesors", name: "profesor_id_f"
   add_foreign_key "profesors_resultado_encuesta", "resultado_encuesta", name: "result_id_f"
+  add_foreign_key "resultado_encuesta", "user_tables", column: "id", name: "result_user_id"
 end

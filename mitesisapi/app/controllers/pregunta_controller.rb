@@ -9,13 +9,19 @@ class PreguntaController < ApplicationController
   end
 
   def show
-    respond_with(@preguntum)
+    render json: @preguntum
   end
 
   def create
     @preguntum = Preguntum.new(preguntum_params)
     @preguntum.save
     respond_with(@preguntum)
+  end
+
+  def resultPreg
+    @preguntum = Preguntum.pregAsign(params[:preg_codsign], params[:preg_coord],params[:preg_secc],
+     params[:preg_agno], params[:preg_sem])
+    render json: @preguntum
   end
 
   def update

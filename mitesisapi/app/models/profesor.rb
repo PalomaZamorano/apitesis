@@ -13,5 +13,15 @@ class Profesor < ApplicationRecord
      def self.resultAgno(id,agno)
       Profesor.find(id).resultado_encuestums.where(:result_agno => agno)
      end 
+
+     def self.cursoAgno(id,asign,agno)
+      Profesor.find(id).cursos.where(:curso_cod => asign, :curso_agno => agno)
+     end 
+
+     def self.resultAsign(id,asign, agno)
+      Profesor.find(id).resultado_encuestums.where(:result_asign => asign, :result_agno => agno )
+     end
+
+
   
 end

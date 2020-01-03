@@ -5,7 +5,7 @@ class ProfesorsController < ApplicationController
 
   def index
     @profesors = Profesor.all
-    respond_with(@profesors)
+    render json: @profesors
 
   end
 
@@ -13,9 +13,47 @@ class ProfesorsController < ApplicationController
     respond_with(@profesor)
   end
 
+  def CursoAgno
+    @profesor = Profesor.cursoAgno(params[:id],params[:curso_asign], params[:curso_agno])
+    render json: @profesor
+  end 
+
   def resultAgno
     @profesor = Profesor.resultAgno(params[:id], params[:result_agno])
     render json: @profesor
+  end
+
+  def resultAsign
+    @profesor = Profesor.resultAsign(params[:id], params[:result_asign],params[:result_agno] )
+    result_total = @profesor.average(:result_total)
+  if @profesor.length != 0
+    result_promming1 = @profesor.average(:result_promming1)       
+    result_promming2 = @profesor.average(:result_promming2)     
+    result_promming3 = @profesor.average(:result_promming3)      
+    result_promming4 = @profesor.average(:result_promming4)       
+    result_prommaxg1 = @profesor.average(:result_prommaxg1)      
+    result_prommaxg2 = @profesor.average(:result_prommaxg2)      
+    result_prommaxg3 = @profesor.average(:result_prommaxg3)      
+    result_prommaxg4 = @profesor.average(:result_prommaxg4)
+    result_promg1n   = @profesor.average(:result_promg1n)     
+    result_promg2n   = @profesor.average(:result_promg2n)    
+    result_promg3n   = @profesor.average(:result_promg3n)    
+    result_promg4n   = @profesor.average(:result_promg4n)
+    result_prom_general = (result_promg1n + result_promg2n + result_promg3n + result_promg4n)/4
+    result_nombre   = @profesor.first.result_nombre
+
+
+    json = JSON.generate [{"result_prom_general"=>result_prom_general.round,"result_nombre"=>result_nombre,"result_total"=>result_total, "result_promming1"=>result_promming1,"result_promming2"=>result_promming2,
+    "result_promming3"=>result_promming3,"result_promming4"=>result_promming4,"result_prommaxg1"=>result_prommaxg1,
+    "result_prommaxg2"=>result_prommaxg2,"result_prommaxg3"=>result_prommaxg3,"result_prommaxg4"=>result_prommaxg4,
+    "result_promg1n"=>result_promg1n,"result_promg2n"=>result_promg2n,"result_promg3n"=>result_promg3n,
+    "result_promg4n"=>result_promg4n}]
+    render json: json
+  
+  else
+    render json: @profesor
+  end
+
   end
 
 

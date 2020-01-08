@@ -22,13 +22,17 @@ Rails.application.routes.draw do
   get 'resultsGeneral/:result_asign', to: 'resultado_encuesta#resultsGeneral'
   #Retorna los resultados de la encuesta por profesor y año
   get 'profesoresultsAgno/:id/:result_agno', to: 'profesors#resultAgno'
+  #Retorna los resultados de la encuesta por profesor y año
+  get 'profesoresultsTresAgno/:id/:result_agno', to: 'profesors#resultTresAgno'
   #Retorna los cursos del profesor según año
    get 'profesoCursoAgno/:id/:curso_asign/:curso_agno', to: 'profesors#CursoAgno'
   #Retorna los resultados de la encuesta por profesor, codigo asign y año
   get 'profsAsign/:id/:result_asign/:result_agno', to: 'profesors#resultAsign'
   #Retorna las preguntas según codigo, coordincación, sección y año
-  get 'pregResult/:preg_codsign/:preg_coord/:preg_secc/:preg_agno/:preg_sem', to: 'pregunta#resultPreg'
+  get 'pregResult/:preg_codsign/:preg_coord/:preg_secc/:preg_agno/:preg_sem/', to: 'pregunta#resultPreg'
   #Retorna agrupación de los cursos por coordinación y asignatura
   get 'cursoAgroup/:coord', to: 'cursos#cursoAgroup'
+  #Retorna la asignatura según el código
+  get 'asigncode/:asign_code' , to: 'asignaturas#asignCode'
   # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html
 end

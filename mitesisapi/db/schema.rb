@@ -37,8 +37,7 @@ ActiveRecord::Schema.define(version: 2019_11_07_012111) do
     t.integer "curso_cod"
     t.datetime "created_at", precision: 6, default: -> { "now()" }, null: false
     t.datetime "updated_at", precision: 6, default: -> { "now()" }, null: false
-    t.bigint "asignatura_id", null: false
-    t.bigint "resultado_encuestum_id"
+    t.bigint "asignatura_id"
   end
 
   create_table "cursos_profesors", id: :bigint, default: -> { "nextval('asignaturas_id_seq'::regclass)" }, force: :cascade do |t|
@@ -48,7 +47,7 @@ ActiveRecord::Schema.define(version: 2019_11_07_012111) do
     t.bigint "profesor_id", null: false
   end
 
-  create_table "preguntas", id: :bigint, default: -> { "nextval('resultado_encuesta_id_seq'::regclass)" }, force: :cascade do |t|
+  create_table "pregunta", id: :bigint, default: -> { "nextval('resultado_encuesta_id_seq'::regclass)" }, force: :cascade do |t|
     t.integer "preg_nropreg"
     t.string "preg_pregunta"
     t.integer "preg_min"
@@ -56,10 +55,14 @@ ActiveRecord::Schema.define(version: 2019_11_07_012111) do
     t.decimal "preg_prom"
     t.string "preg_profs"
     t.integer "preg_codsign"
-    t.bigint "preg_result_id"
+    t.bigint "resultado_encuestum_id"
     t.string "preg_nombreasign"
     t.time "created_at", precision: 6, default: -> { "now()" }, null: false
     t.time "updated_at", precision: 6, default: -> { "now()" }, null: false
+    t.integer "preg_secc"
+    t.string "preg_coord"
+    t.integer "preg_agno"
+    t.integer "preg_sem"
   end
 
   create_table "profesors", force: :cascade do |t|
@@ -78,6 +81,8 @@ ActiveRecord::Schema.define(version: 2019_11_07_012111) do
     t.integer "prof_proms_d3"
     t.integer "prof_proms_d4"
     t.integer "prof_totalEncuestas"
+    t.string "prof_observaciones"
+    t.string "prof_photo"
   end
 
   create_table "profesors_resultado_encuesta", id: :bigint, default: -> { "nextval('asignaturas_id_seq'::regclass)" }, force: :cascade do |t|
@@ -123,8 +128,8 @@ ActiveRecord::Schema.define(version: 2019_11_07_012111) do
   add_foreign_key "cursos", "asignaturas", name: "curso_asign_id"
   add_foreign_key "cursos_profesors", "cursos", name: "curso_id"
   add_foreign_key "cursos_profesors", "profesors", name: "profesor_id"
-  add_foreign_key "preguntas", "resultado_encuesta", column: "preg_result_id", name: "preguntas_id_result"
+  add_foreign_key "pregunta", "resultado_encuesta", name: "preguntas_id_result"
   add_foreign_key "profesors_resultado_encuesta", "profesors", name: "profesor_id_f"
   add_foreign_key "profesors_resultado_encuesta", "resultado_encuesta", name: "result_id_f"
-  add_foreign_key "resultado_encuesta", "user_tables", column: "id", name: "result_user_id"
+  add_foreign_key "resultado_encuesta", "user_tables", column: "id", name: "user_id"
 end

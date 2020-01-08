@@ -4,7 +4,8 @@ class ProfesorsController < ApplicationController
   respond_to :json
 
   def index
-    @profesors = Profesor.all
+    @profesors = Profesor.order(prof_nombre_corto: :asc)
+
     render json: @profesors
 
   end
@@ -20,6 +21,12 @@ class ProfesorsController < ApplicationController
 
   def resultAgno
     @profesor = Profesor.resultAgno(params[:id], params[:result_agno])
+    render json: @profesor
+  end
+
+
+  def resultTresAgno
+    @profesor = Profesor.resultTresAgno(params[:id], params[:result_agno])
     render json: @profesor
   end
 
@@ -43,11 +50,12 @@ class ProfesorsController < ApplicationController
     result_nombre   = @profesor.first.result_nombre
 
 
-    json = JSON.generate [{"result_prom_general"=>result_prom_general.round,"result_nombre"=>result_nombre,"result_total"=>result_total, "result_promming1"=>result_promming1,"result_promming2"=>result_promming2,
-    "result_promming3"=>result_promming3,"result_promming4"=>result_promming4,"result_prommaxg1"=>result_prommaxg1,
-    "result_prommaxg2"=>result_prommaxg2,"result_prommaxg3"=>result_prommaxg3,"result_prommaxg4"=>result_prommaxg4,
-    "result_promg1n"=>result_promg1n,"result_promg2n"=>result_promg2n,"result_promg3n"=>result_promg3n,
-    "result_promg4n"=>result_promg4n}]
+    json = JSON.generate [{"result_prom_general"=>result_prom_general.round,"result_nombre"=>result_nombre,"result_total"=>result_total, 
+    "result_promming1"=>result_promming1.round,"result_promming2"=>result_promming2.round,
+    "result_promming3"=>result_promming3.round,"result_promming4"=>result_promming4.round,"result_prommaxg1"=>result_prommaxg1.round,
+    "result_prommaxg2"=>result_prommaxg2.round,"result_prommaxg3"=>result_prommaxg3.round,"result_prommaxg4"=>result_prommaxg4.round,
+    "result_promg1n"=>result_promg1n.round,"result_promg2n"=>result_promg2n.round,"result_promg3n"=>result_promg3n.round,
+    "result_promg4n"=>result_promg4n.round}]
     render json: json
   
   else
@@ -133,6 +141,6 @@ class ProfesorsController < ApplicationController
     end
 
     def profesor_params
-      params.require(:profesor).permit(:prof_nombre_corto, :if_DUU, :if_pendiente,:prof_proms_d1,:prof_proms_d2,:prof_proms_d3,:prof_proms_d4,:prof_totalEncuestas, :prof_proms_results, :prof_e_mail, :prof_depto, :prof_area, :prof_jornada)
+      params.require(:profesor).permit(:prof_nombre_corto, :if_DUU, :if_pendiente,:prof_proms_d1,:prof_proms_d2,:prof_proms_d3,:prof_proms_d4,:prof_totalEncuestas, :prof_proms_results, :prof_e_mail, :prof_depto, :prof_area, :prof_jornada,:prof_observaciones, :prof_photo)
     end
 end

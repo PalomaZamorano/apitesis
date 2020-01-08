@@ -3,7 +3,7 @@ class AsignaturasController < ApplicationController
 
   # GET /asignaturas
   def index
-    @asignaturas = Asignatura.all
+    @asignaturas = Asignatura.order(asign_nombre: :asc)
   end
 
   # GET /asignaturas/1
@@ -14,6 +14,11 @@ class AsignaturasController < ApplicationController
       format.json { render json: @asignatura.as_json(include: [:cursos]) }
     end
   end
+
+  def asignCode
+    @asignatura = Asignatura.asignCode(params[:asign_code])
+    render json: @asignatura
+   end 
 
   # POST /asignaturas
   def create

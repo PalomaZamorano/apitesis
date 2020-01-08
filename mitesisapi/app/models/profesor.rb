@@ -7,12 +7,17 @@ class Profesor < ApplicationRecord
     #Se calcula el promedio de los promedios de los cursos en los que el profesor
     #participa
     def self.rankingModel
-      Profesor.limit(5).order('prof_proms_results asc')
+      @prueba =  Profesor.where("prof_proms_results IS NOT NULL")
+      @prueba.limit(5).order('prof_proms_results desc')
      end
 
      def self.resultAgno(id,agno)
       Profesor.find(id).resultado_encuestums.where(:result_agno => agno)
      end 
+
+     def self.resultTresAgno(id,agno)  
+      Profesor.find(id).resultado_encuestums.where{ (agno-3) <:result_agno < agno}
+     end
 
      def self.cursoAgno(id,asign,agno)
       Profesor.find(id).cursos.where(:curso_cod => asign, :curso_agno => agno)

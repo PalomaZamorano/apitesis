@@ -1,3 +1,6 @@
 class UserTable < ApplicationRecord
-    has_secure_password
+
+    def self.verification(mail)
+        UserTable.where(:user_mail =>mail)
+       end
 end

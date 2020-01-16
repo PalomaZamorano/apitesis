@@ -53,7 +53,7 @@ class AsignaturasController < ApplicationController
 
     # Only allow a trusted parameter "white list" through.
     def asignatura_params
-      params.require(:asignatura).permit(:asign_nombre, :asign_code)
+      params.require(:asignatura).permit(:asign_nombre, :asign_code,:asign_coordinadores)
 
     end
 

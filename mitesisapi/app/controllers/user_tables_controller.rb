@@ -5,27 +5,32 @@ class UserTablesController < ApplicationController
 
   def index
     @user_tables = UserTable.all
-    respond_with(@user_tables)
+    render json: @user_tables
   end
 
   def show
-    respond_with(@user_table)
+    render json: @user_tables
+  end
+
+  def veri
+    @respt  = UserTable.verification(params[:user_mail])
+    render json: @respt
   end
 
   def create
     @user_table = UserTable.new(user_table_params)
     @user_table.save
-    respond_with(@user_table)
+    render json: @user_tables
   end
 
   def update
     @user_table.update(user_table_params)
-    respond_with(@user_table)
+    render json: @user_tables
   end
 
   def destroy
     @user_table.destroy
-    respond_with(@user_table)
+    render json: @user_tables
   end
 
   private

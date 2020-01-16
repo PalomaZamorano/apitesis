@@ -12,6 +12,23 @@ class CursosController < ApplicationController
     render json: @curso
   end
 
+  #retorna las ids de los profesores pertenecientes al curso
+  def cursoProfs
+    @curso =  Curso.cursoProfesors(params[:id])
+    if @curso.length == 2
+      id1 = @curso[0].id      
+      id2 = @curso[1].id
+      json = JSON.generate [{"id1"=>id1,"id2"=>id2}]
+      render json: json
+    else  
+      id1 = @curso[0].id      
+      id2 = 0
+      json = JSON.generate [{"id1"=>id1,"id2"=>id2}]
+      render json: json
+    end  
+  end
+
+
   # POST /cursos
   def create
     @curso = Curso.new(curso_params)

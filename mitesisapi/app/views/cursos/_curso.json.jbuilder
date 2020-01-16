@@ -15,4 +15,6 @@
   json.profesors do
     json.array! curso.profesors, :id, :prof_nombre_corto, :if_DUU, :prof_e_mail, :prof_depto, :prof_area, :prof_jornada
     end
+ 
+
 

@@ -19,11 +19,23 @@ class ProfesorsController < ApplicationController
     render json: @profesor
   end 
 
+  def Last
+    @profesor = Profesor.lastResult(params[:id])
+    render json: @profesor
+  end 
+
+  
+  def cursoLast
+    @cursos = Profesor.cursoLast(params[:id],params[:curso_agno], params[:curso_sem])
+    @results = Profesor.resultLast(params[:id],params[:curso_agno], params[:curso_sem])
+    mer = [@cursos, @results ].as_json
+    render json: mer
+  end 
+
   def resultAgno
     @profesor = Profesor.resultAgno(params[:id], params[:result_agno])
     render json: @profesor
   end
-
 
   def resultTresAgno
     @profesor = Profesor.resultTresAgno(params[:id], params[:result_agno])
@@ -72,6 +84,12 @@ class ProfesorsController < ApplicationController
     render json: @profesors
   end
 
+
+  def profsInfo
+    @profesors = Profesor.infoProfs
+    render json: @profesors
+  end 
+  
 #Promedio del promedio General de todos los profesores del sistema
   def PromGeneral
     valor = Profesor.average(:prof_proms_results) 

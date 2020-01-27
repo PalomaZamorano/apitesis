@@ -7,7 +7,7 @@ class ResultadoEncuestum < ApplicationRecord
        end
 
     def self.restCurso(agno,sem)
-        @resultInfo = ResultadoEncuestum.where("result_asign>13000 OR result_asign=10123 OR result_asign=10110" )
+        @resultInfo = ResultadoEncuestum.where("result_asign>13000 OR result_asign=10126 OR result_asign=10110" )
         @actual = @resultInfo.where(:result_agno => agno, :result_semestre => sem)
         @actual.where("result_promg1n <= 3.5 OR result_promg2n <= 3.5 OR result_promg3n <= 3.5 OR result_promg4n <= 3.5" )
     end   

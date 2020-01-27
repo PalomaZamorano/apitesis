@@ -28,6 +28,11 @@ class CursosController < ApplicationController
     end  
   end
 
+  #Retorna los profesores de los cursos pretencientes al departamento de ingeniería informática
+  def infoProfesors
+    @curso = Curso.restCurso
+    render json: @curso
+  end
 
   # POST /cursos
   def create

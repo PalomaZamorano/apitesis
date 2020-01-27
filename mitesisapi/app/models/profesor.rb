@@ -7,8 +7,10 @@ class Profesor < ApplicationRecord
     #Se calcula el promedio de los promedios de los cursos en los que el profesor
     #participa
     def self.rankingModel
-      @prueba =  Profesor.where("prof_proms_results IS NOT NULL")
-      @prueba.limit(5).order('prof_proms_results desc')
+      @prueba =  Profesor.infoProfesors
+      @prueba1 =  @prueba.sort_by! { |x| x.prof_proms_results }
+      @fin = @prueba1.last(5)
+      @fin.reverse
      end
 
     def self.lastResult(id)
@@ -46,6 +48,12 @@ class Profesor < ApplicationRecord
       @last =  @profs.where('prof_proms_d1 <= 3.5 OR prof_proms_d2 <= 3.5 OR prof_proms_d3 <= 3.5 OR prof_proms_d4 <= 3.5 OR prof_proms_results <= 3.5 ' )
       @last.where("prof_proms_results > 0")
     end
+
+
+    def self.infoProfesors()
+      @profs = Profesor.joins(:cursos).where("curso_cod>13000 OR curso_cod=10126 OR curso_cod=10110")
+      @cosa = @profs.uniq
+    end  
 
      
 

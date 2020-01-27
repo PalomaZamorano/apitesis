@@ -20,6 +20,11 @@ class AsignaturasController < ApplicationController
     render json: @asignatura
    end 
 
+   def asignInfo
+    @asignatura = Asignatura.restAsign
+    render json: @asignatura
+   end  
+
   # POST /asignaturas
   def create
     @asignatura = Asignatura.new(asignatura_params)

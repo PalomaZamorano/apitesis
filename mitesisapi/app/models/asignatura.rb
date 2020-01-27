@@ -5,4 +5,8 @@ class Asignatura < ApplicationRecord
      def self.asignCode(code)
         Asignatura.where(:asign_code => code)
        end 
+
+    def self.restAsign()
+        Asignatura.where("asign_code>13000 OR asign_code=10126 OR asign_code=10110" )
+    end   
 end

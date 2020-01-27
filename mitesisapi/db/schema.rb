@@ -76,10 +76,10 @@ ActiveRecord::Schema.define(version: 2019_11_07_012111) do
     t.datetime "updated_at", precision: 6, default: -> { "now()" }, null: false
     t.integer "if_pendiente"
     t.decimal "prof_proms_results"
-    t.integer "prof_proms_d1"
-    t.integer "prof_proms_d2"
-    t.integer "prof_proms_d3"
-    t.integer "prof_proms_d4"
+    t.decimal "prof_proms_d1", precision: 8, scale: 1
+    t.decimal "prof_proms_d2", precision: 8, scale: 1
+    t.decimal "prof_proms_d3", precision: 8, scale: 1
+    t.decimal "prof_proms_d4", precision: 8, scale: 1
     t.integer "prof_totalEncuestas"
     t.string "prof_observaciones"
     t.string "prof_photo"
@@ -115,7 +115,7 @@ ActiveRecord::Schema.define(version: 2019_11_07_012111) do
     t.decimal "result_promg4n"
   end
 
-  create_table "user_tables", force: :cascade do |t|
+  create_table "user_tables", id: :bigint, default: -> { "nextval('resultado_encuesta_id_seq'::regclass)" }, force: :cascade do |t|
     t.string "user_name"
     t.string "user_mail"
     t.integer "user_rol"

@@ -38,7 +38,7 @@ Rails.application.routes.draw do
   get 'profsLastcurso/:id/:curso_agno/:curso_sem', to: 'profesors#cursoLast'
 
   #Retorna las preguntas según codigo, coordincación, sección y año
-  get 'pregResult/:preg_codsign/:preg_coord/:preg_secc/:preg_agno/:preg_sem/', to: 'pregunta#resultPreg'
+  get 'pregResult/:preg_codsign/:preg_coord/:preg_secc/:preg_agno/:preg_sem/:preg_elect', to: 'pregunta#resultPreg'
   
   #Retorna resultado encuesta según asignatura, año y semestre
   get 'resultCurso/:result_asign/:result_agno/:result_semestre', to: 'resultado_encuesta#resultCurso'

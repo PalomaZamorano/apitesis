@@ -20,7 +20,7 @@ class PreguntaController < ApplicationController
 
   def resultPreg
     @preguntum = Preguntum.pregAsign(params[:preg_codsign], params[:preg_coord],params[:preg_secc],
-     params[:preg_agno], params[:preg_sem])
+     params[:preg_agno], params[:preg_sem], params[:preg_elect])
     render json: @preguntum
   end
 
@@ -40,6 +40,6 @@ class PreguntaController < ApplicationController
     end
 
     def preguntum_params
-      params.require(:preguntum).permit(:preg_nropreg, :preg_pregunta, :preg_min, :preg_max, :preg_prom, :preg_profs, :preg_codsign, :preg_result_id, :preg_nombreasign)
+      params.require(:preguntum).permit(:preg_nropreg, :preg_pregunta, :preg_min, :preg_max, :preg_prom, :preg_profs, :preg_codsign, :preg_result_id, :preg_nombreasign,:preg_elect)
     end
 end

@@ -38,8 +38,20 @@ class ProfesorsController < ApplicationController
   end
 
   def resultTresAgno
-    @profesor = Profesor.resultTresAgno(params[:id], params[:result_agno])
-    render json: @profesor
+    myprof = Array.new
+    @year = Profesor.lastResult(params[:id],params[:result_asign])
+    @profesor = Profesor.resultAsignYears(params[:id], params[:result_asign], @year[0])
+    @profesor2 = Profesor.resultAsignYears(params[:id], params[:result_asign], @year[0]-1)
+    @profesor3 = Profesor.resultAsignYears(params[:id], params[:result_asign], @year[0]-2)
+    json = JSON.generate [{"result_nombre" =>@profesor[2],
+    "result_prom_general" =>@profesor[0],"result_agno1"=>@profesor[1],
+    "result_prom_general1"=>@profesor2[0],"result_agno2"=>@profesor2[1],
+    "result_prom_general2"=>@profesor3[0],"result_agno3"=>@profesor3[1]
+    
+    }]
+    render json: json
+    
+    
   end
 
   def resultAsign
@@ -98,8 +110,7 @@ class ProfesorsController < ApplicationController
     d2proms =  profesors.sum { |x| x["prof_proms_d2"] } / profesors.size
     d3proms =  profesors.sum { |x| x["prof_proms_d3"] } / profesors.size 
     d4proms =  profesors.sum { |x| x["prof_proms_d4"] } / profesors.size
-    total_encuestas =  profesors.sum { |x| x["prof_totalEncuestas"] } / profesors.size 
-
+    total_encuestas =  profesors.sum { |x| x["prof_totalEncuestas"] } 
     json = JSON.generate [{"promGeneral"=>valor, "promD1"=>d1proms,
                           "promD2"=>d2proms,"promD3"=>d3proms,"promD4"=>d4proms,"total_encuestas"=>total_encuestas}]  
     render json:json
@@ -134,7 +145,9 @@ class ProfesorsController < ApplicationController
         pg3 = profesor.resultado_encuestums.average(:result_promg3n)
         pg4 = profesor.resultado_encuestums.average(:result_promg4n)
         avr = (pg1 + pg2 + pg3 + pg4)/4 
-        sumen = profesor.resultado_encuestums.sum(&:result_total)
+        c1= profesor.cursos.sum(&:curso_aprobados)
+        c2= profesor.cursos.sum(&:curso_reprobados)
+        sumen = c1+c2
      
 
         profesor.update_attribute :prof_proms_results,avr

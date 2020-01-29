@@ -36,8 +36,10 @@ Rails.application.routes.draw do
   get 'profsLast/:id', to: 'profesors#Last'
   #Retorna los últimos cursos del profesor según semestre y año
   get 'profsLastcurso/:id/:curso_agno/:curso_sem', to: 'profesors#cursoLast'
+
   #Retorna las preguntas según codigo, coordincación, sección y año
   get 'pregResult/:preg_codsign/:preg_coord/:preg_secc/:preg_agno/:preg_sem/', to: 'pregunta#resultPreg'
+  
   #Retorna resultado encuesta según asignatura, año y semestre
   get 'resultCurso/:result_asign/:result_agno/:result_semestre', to: 'resultado_encuesta#resultCurso'
   #Retorna resultado encuesta que posean valores menor a 3.5 en alguna de las dimensiones
@@ -59,6 +61,8 @@ Rails.application.routes.draw do
   #Retorna los profesores pretenecientes al depto de informática
   get 'profsInfor/', to: 'profesors#infoProfesors'
 
+  #Retorna los resultados de la encuesta por profesor en los últimos 3 años
+  get 'profsAsignLastYears/:id/:result_asign', to: 'profesors#resultTresAgno'
 
   # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html
 end

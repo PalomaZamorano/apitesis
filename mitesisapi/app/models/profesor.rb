@@ -13,9 +13,9 @@ class Profesor < ApplicationRecord
       @fin.reverse
      end
 
-    def self.lastResult(id)
-     @sem =Profesor.find(id).cursos.maximum(:curso_sem)
-     @agno = Profesor.find(id).cursos.maximum(:curso_agno)
+    def self.lastResult(id,curso_cod)
+     @sem =Profesor.find(id).cursos.where(:curso_cod => curso_cod).maximum(:curso_sem)
+     @agno = Profesor.find(id).cursos.where(:curso_cod => curso_cod).maximum(:curso_agno)
      return @agno,@sem
     end  
 
@@ -42,6 +42,18 @@ class Profesor < ApplicationRecord
      def self.resultAsign(id,asign, agno)
       Profesor.find(id).resultado_encuestums.where(:result_asign => asign, :result_agno => agno )
      end
+
+     def addPost (newPost)
+      #Here I try to add an object blog, post an array of objects
+              @post.push(newPost)
+      end
+
+     def self.resultAsignYear(id,asign)
+      Profesor.new
+      @year  = Profesor.lastResult(id)
+      Profesor.find(id).resultado_encuestums.where(:result_asign => asign, :result_agno => @year[0] )
+      
+     end
     
      def self.infoProfs()
       @profs = Profesor.where(:prof_depto => 'Departamento de Ingeniería Informática')
@@ -56,6 +68,25 @@ class Profesor < ApplicationRecord
     end  
 
      
+
+  def self.resultAsignYears(id,result_asign,result_agno)
+    @profesor = Profesor.resultAsign(id,result_asign,result_agno)
+    result_total = @profesor.average(:result_total)
+    if @profesor.length != 0
+    
+      result_promg1n   = @profesor.average(:result_promg1n)     
+      result_promg2n   = @profesor.average(:result_promg2n)    
+      result_promg3n   = @profesor.average(:result_promg3n)    
+      result_promg4n   = @profesor.average(:result_promg4n)
+      result_prom_general = (result_promg1n + result_promg2n + result_promg3n + result_promg4n)/4
+      result_nombre   = @profesor.first.result_nombre
+      result_agno   = @profesor.first.result_agno
+      return result_prom_general,result_agno,result_nombre
+  else
+    @profesor
+  end
+
+  end  
 
 
   

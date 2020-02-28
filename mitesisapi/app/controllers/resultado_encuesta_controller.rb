@@ -19,8 +19,8 @@ class ResultadoEncuestaController < ApplicationController
     resultadopromd3 = @resultado_encuesta.average(:result_promg3n)
     resultadopromd4 = @resultado_encuesta.average(:result_promg4n)
     result_prom_general = (resultadopromd1 + resultadopromd2 + resultadopromd3 + resultadopromd4)/4
-    json = JSON.generate ["resultadoGeneral"=>result_prom_general.round,"promsd1"=>resultadopromd1.round,"promsd2"=>resultadopromd2.round, 
-    "promsd3"=>resultadopromd3.round, "promsd4"=>resultadopromd4.round]
+    json = JSON.generate ["resultadoGeneral"=>result_prom_general,"promsd1"=>resultadopromd1,"promsd2"=>resultadopromd2, 
+    "promsd3"=>resultadopromd3, "promsd4"=>resultadopromd4]
     render json: json
   end
 
@@ -40,6 +40,16 @@ class ResultadoEncuestaController < ApplicationController
 
   def notResults
     @resultado_encuestum = ResultadoEncuestum.restCurso(params[:result_agno], params[:result_semestre])
+    respond_with(@resultado_encuestum)
+  end
+
+  def civilResults
+    @resultado_encuestum = ResultadoEncuestum.civilCurso(params[:result_agno], params[:result_semestre])
+    respond_with(@resultado_encuestum)
+  end
+
+  def ejecuResults
+    @resultado_encuestum = ResultadoEncuestum.ejecuCurso(params[:result_agno], params[:result_semestre])
     respond_with(@resultado_encuestum)
   end
 

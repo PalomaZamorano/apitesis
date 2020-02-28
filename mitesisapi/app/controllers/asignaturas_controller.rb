@@ -23,7 +23,17 @@ class AsignaturasController < ApplicationController
    def asignInfo
     @asignatura = Asignatura.restAsign
     render json: @asignatura
-   end  
+   end 
+   
+   def asignCivil
+    @asignatura = Asignatura.civilAsign
+    render json: @asignatura
+   end
+
+   def asignEjecu
+    @asignatura = Asignatura.ejecuAsign
+    render json: @asignatura
+   end
 
   # POST /asignaturas
   def create

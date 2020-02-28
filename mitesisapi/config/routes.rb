@@ -64,5 +64,37 @@ Rails.application.routes.draw do
   #Retorna los resultados de la encuesta por profesor en los últimos 3 años
   get 'profsAsignLastYears/:id/:result_asign', to: 'profesors#resultTresAgno'
 
+  #CIVIL
+  #Retorna las asignaturas de civil informática
+  get 'asignCivil/' , to: 'asignaturas#asignCivil'
+
+  #Retorna los profesores pretenecientes al depto de informática y a Civil
+  get 'profsCivil/', to: 'profesors#civilProfesors'
+
+  #Retorna promedio general de los profesores de civil
+  get 'profesorsPromGeneralCivil/', to: 'profesors#PromGeneralCivil'
+
+  #Retorna resultado encuesta que posean valores menor a 3.5 en alguna de las dimensiones de profesores de civil
+  get 'civilResult/:result_agno/:result_semestre', to: 'resultado_encuesta#civilResults'
+
+  #retorna ranking 5 profesores de civil asc según promedio encuestas
+  get 'profesorsRankingCivil', to: 'profesors#rankingCivil'
+
+  #EJECUCION
+  #Retorna las asignaturas de civil informática
+  get 'asignEjecu/' , to: 'asignaturas#asignEjecu'
+
+  #Retorna los profesores pretenecientes al depto de informática y a Ejecucion
+  get 'profsEjecu/', to: 'profesors#ejecuProfesors'
+
+  #Retorna promedio general de los profesores de civil
+  get 'profesorsPromGeneralEjecu/', to: 'profesors#PromGeneralEjecu'
+
+  #Retorna resultado encuesta que posean valores menor a 3.5 en alguna de las dimensiones de profesores de civil
+  get 'ejecuResult/:result_agno/:result_semestre', to: 'resultado_encuesta#ejecuResults'
+
+   #retorna ranking 5 profesores de ejecución asc según promedio encuestas
+   get 'profesorsRankingEjecu', to: 'profesors#rankingEjecu'
+
   # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html
 end

@@ -96,6 +96,16 @@ class ProfesorsController < ApplicationController
     render json: @profesors
   end
 
+  def rankingCivil
+    @profesors = Profesor.rankingModelCivil
+    render json: @profesors
+  end
+
+  def rankingEjecu
+    @profesors = Profesor.rankingModelEjecu
+    render json: @profesors
+  end
+
 
   def profsInfo
     @profesors = Profesor.infoProfs
@@ -105,6 +115,32 @@ class ProfesorsController < ApplicationController
 #Promedio del promedio General de todos los profesores del sistema
   def PromGeneral
     profesors = Profesor.infoProfesors
+    valor   =  profesors.sum { |x| x["prof_proms_results"] } / profesors.size 
+    d1proms =  profesors.sum { |x| x["prof_proms_d1"] } / profesors.size 
+    d2proms =  profesors.sum { |x| x["prof_proms_d2"] } / profesors.size
+    d3proms =  profesors.sum { |x| x["prof_proms_d3"] } / profesors.size 
+    d4proms =  profesors.sum { |x| x["prof_proms_d4"] } / profesors.size
+    total_encuestas =  profesors.sum { |x| x["prof_totalEncuestas"] } 
+    json = JSON.generate [{"promGeneral"=>valor, "promD1"=>d1proms,
+                          "promD2"=>d2proms,"promD3"=>d3proms,"promD4"=>d4proms,"total_encuestas"=>total_encuestas}]  
+    render json:json
+  end
+
+  def PromGeneralCivil
+    profesors = Profesor.civilProfesors
+    valor   =  profesors.sum { |x| x["prof_proms_results"] } / profesors.size 
+    d1proms =  profesors.sum { |x| x["prof_proms_d1"] } / profesors.size 
+    d2proms =  profesors.sum { |x| x["prof_proms_d2"] } / profesors.size
+    d3proms =  profesors.sum { |x| x["prof_proms_d3"] } / profesors.size 
+    d4proms =  profesors.sum { |x| x["prof_proms_d4"] } / profesors.size
+    total_encuestas =  profesors.sum { |x| x["prof_totalEncuestas"] } 
+    json = JSON.generate [{"promGeneral"=>valor, "promD1"=>d1proms,
+                          "promD2"=>d2proms,"promD3"=>d3proms,"promD4"=>d4proms,"total_encuestas"=>total_encuestas}]  
+    render json:json
+  end
+
+  def PromGeneralEjecu
+    profesors = Profesor.ejecuProfesors
     valor   =  profesors.sum { |x| x["prof_proms_results"] } / profesors.size 
     d1proms =  profesors.sum { |x| x["prof_proms_d1"] } / profesors.size 
     d2proms =  profesors.sum { |x| x["prof_proms_d2"] } / profesors.size
@@ -163,6 +199,16 @@ class ProfesorsController < ApplicationController
 
   def infoProfesors
     @profesor = Profesor.infoProfesors
+    render json: @profesor
+  end
+
+  def civilProfesors
+    @profesor = Profesor.civilProfesors
+    render json: @profesor
+  end
+
+  def ejecuProfesors
+    @profesor = Profesor.ejecuProfesors
     render json: @profesor
   end
 
